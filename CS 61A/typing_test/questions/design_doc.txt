@@ -1,0 +1,210 @@
+Text File questions
+
+
+
+
+Problem 01: Sample Paragraphs
+
+
+
+
+- Which functions from utils.py will you use for interacting with the sample_paragraphs.txt file?
+
+
+The functions under "Reading Files" will all be used to read the sample paragraphs text file. Close function is used to close the file object,
+Readable will return true if the text file contains readable text, Readline will read the line in the text file one by one until each line is read,
+and the Readlines function will return the lines in a list.
+
+
+
+
+
+Problem 02: Words Per Minute
+
+
+
+
+- Given a long string that contains a full paragraph (e.g. "This is my name. It is Bob. Also, I have a cat named Troy."), 
+	what function will you use to separate a string containing a full paragraph into its individual words?
+
+
+
+
+
+
+- What is the calculation you will use in order to measure Words Per Minute speed? (You can describe your formula.)
+
+
+
+
+
+
+- What is the calculation you will use in order to measure accuracy? (You can describe your formula.)
+A String function split(s) could be used to seperate a long string by converting it to a list when the function encounters a seperator; in this case a
+space character/ whitespace. 
+
+Words is defined as 5 characters as each word could vary by length. So, we first take the typed_string input from the user and calculate the length of
+characters the string have. Then, divide the length by 5 and we got the total word in the string. Then, to calculate the duration, take end_time and
+subtract it from start_time which gives us the duration in second; divide that by 60 and we got the duration in minutes. Last, divide the total number 
+of words by the duration in minutes which gives us the words per minute speed.
+
+First, we need to split the string to a list of words by using the split function. This will return a list of words and by finding the length of the list,
+we have the total number of words in the string. We should do this for both sample_paragraph and typed_string. We use the smaller length by using the 
+min function and set that number as the maximum index. Then, we should compare both list from the sample_paragraph and typed_string from index 0 to
+length-1 and if they are identical, increment a total_correct by 1. Accuracy should be calculated by taking the total_correct and divide it by the length
+of the list.
+
+
+
+
+Problem 03: Pig Latin
+
+
+
+
+- How will you identify that a word starts with a consonant cluster?
+So using the list of words from the sample_paragraph, we take each word and examine them. The word itself is a string with index 0 to lenght - 1.
+Write a while loop and continue to remove each character to another string until it finds a vowel character "a i o u e". Then add the new string at the end
+of the old string and adding "ay". If the new string is empty, simply add "way" at the end of the original string.
+
+
+
+
+
+
+
+Problem 04: Autocorrect Skeleton
+
+
+
+
+- How will you calculate the difference scores between the user input string and each valid word, and determine which difference is the smallest?
+First, we need to find the x and y coordinate of the character in the keyboard defined in key_layout. Do this for both string in the input and valid word.
+By having 2 of the x an y values, we could find the euclidean distance between the two keys. Add all of the Euclidean distance of each character in the 
+string and compare all eucledian distance between the string and all possible valid words.
+
+
+
+
+
+
+
+Problem 05: Score Function 
+
+
+
+
+- What will your base case be?
+
+
+
+
+
+
+- Identify two example inputs which fall into different recursive calls. In each of these cases, what recursive call should be made?
+The base case should be when both strings are fully evaluated and substituted (until the smaller maximum index/ smaller length - 1 of the strings).
+so the base case should look like string1 == string2 but only after cutting the larger string to fit in the smaller string.
+
+swap_score("nice", "rice")
+since n != r, return 1 (call swap_score("ice", "ice"))
+and since "i", "c", "e" are the same in both cases, the function should return 0. The return value should be the addition of calling the function recursively
+until the end of the string. (call the function swap_score which will return the base case)
+
+
+
+
+
+
+
+Problem 06: 
+
+
+
+
+- What does each of the recursive calls in the skeleton represent? Are there additional cases which don't fit into the three already given?
+
+
+
+
+
+
+- If we called score_function("bot", "boot"), list a series of successive recursive calls we would go through to reach the base case. 
+	For example, if we called score_function("add", "aadd"), one step could be score_function("add", "aadd") -> score_function("add", "add").
+
+
+
+
+
+
+- Based on your above list of recursive calls, classify each step as an add, remove, a swap, or something else.
+
+
+
+
+
+
+- Why would your function choose this sequence of recursive calls over another?
+The first and second one would represent the base case in which the string of the first word matches the second one. The last recursion represent changing
+the string1 to match string2 by adding, removing, or replacing. No they should all fit.
+
+score_function("bot", "boot") -> score_function("boot", "boot")
+
+adding "o" in the third space between "o" and "t".
+
+The function will call itself until case1 or 2 is achieved and the easiest way is by adding another "o"
+
+
+
+Problem 07: Accuracy
+
+
+
+
+- In your own words, why do we need to improve the accuracy of our existing score_function? In other words, what is the problem that we are trying to solve?
+
+
+
+
+
+
+- How can you adapt your score function from the previous problem to take into account key distances?
+ (Hint: which recursive call will need to be modified?)
+Some characters are further in the keyboard then some and we need to take account the distance too other than the number of mistake in a word. The user will
+mean a word that is closer in the keyboard than a random word. For example, bird and wire might be an autocorrect for wird but e to d is closer so the word
+should be wire not bird.
+
+The third one should be modified to fit in the distance. It is not a problem of adding/ removing but also seeing whether the thing we are trying to add is
+close in the keyboard.
+
+
+
+
+
+
+Problem 08: Efficiency
+
+
+
+
+- What data structure will you use to store all of the differences that score_function has already calculated?
+
+
+
+
+
+
+- What types of values will this data structure contain?
+
+
+
+
+
+
+- Using the data structure you described, given a pair of words, how will you check whether score_function has already been called on that pair of words? 
+	If so, how will you access the already calculated difference?
+A 2-dimensional array would work best because we could store the difference and also the word that is suggested.
+
+One row would contain a double which stores the eucledian difference and the other row would be a string containing the suggested word. An additional row
+should also be added to store the "wrong" word.
+
+Use a search on the word to the array and use the index to find the already calculated difference and the suggested edit since all have the same col index.
